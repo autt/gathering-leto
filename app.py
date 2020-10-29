@@ -8,7 +8,19 @@ from data.mock_data import issues, tags
 app = dash.Dash(__name__)
 
 
+data_issues = get_issues("equinor/gathering-leto")
+
+
+def get_data_dict(data_json_list):
+    results = []
+    for node in data_json_list:
+        d = {"title": node.title, "id": node.id, "user": node.user.login}
+        results.append(d)
+    return results
+
+
 def _create_table_view_div(data_dict):
+    print(data_dict[0].keys())
     return html.Div(
         [
             dash_table.DataTable(
@@ -24,11 +36,11 @@ def _create_tags_listbox_div(data_listbox):
     return html.Div(
         [
             dcc.Dropdown(
-                id="demo-dropdown",
+                id="users-dropdown",
                 options=[{"label": item, "value": item} for item in data_listbox],
                 # value="NYC",
             ),
-            html.Div(id="dd-output-container"),
+            html.Div(id="show-user"),
         ]
     )
 
@@ -36,11 +48,18 @@ def _create_tags_listbox_div(data_listbox):
 app.layout = html.Div(
     [
         _create_tags_listbox_div(tags),
-        _create_table_view_div(issues),
+        _create_table_view_div(get_data_dict(data_issues)),
     ]
 )
+
+
+@app.callback(
+    dash.dependencies.Output("show-user", "children"),
+    [dash.dependencies.Input("users-dropdown", "value")],
+)
+def update_output(value):
+    return 'You have selected "{}"'.format(value)
+
+
 if __name__ == "__main__":
-    issues = get_issues("equinor/gathering-leto")
-    for issue in issues:
-        print(issue.title)
     app.run_server(debug=True)

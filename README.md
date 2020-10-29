@@ -1,20 +1,12 @@
 # SI Gathering Challenge: Template
 
-To run the project locally, you need docker:
-
-```
-docker build -t <name> .
-docker run -p 8000:8000 <name>
-```
-
------------------------------------------
 
 ## Table of contents
 
 - [Technologies](#technologies)
 - [Components](#components)
 - [Security](#security)
-- [Development](./README.md#development)
+- [Development](#development)
 - [Additional documentation](#additional-docs)
 
 ## Technologies

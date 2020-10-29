@@ -4,9 +4,12 @@ metadata:
   name: gathering-leto
 spec:
   environments:
-    - name: prod
+    - name: development
       build:
         from: master
+    - name: production
+      build:
+        from: release
   components:
     - name: server
       src: "."
@@ -15,5 +18,5 @@ spec:
          port: 8000
       publicPort: http
   dnsAppAlias:
-    environment: prod
+    environment: production
     component: server

@@ -38,7 +38,6 @@ def _create_tags_listbox_div(data_listbox):
             dcc.Dropdown(
                 id="users-dropdown",
                 options=[{"label": item, "value": item} for item in data_listbox],
-                # value="NYC",
             ),
             html.Div(id="show-user"),
         ]

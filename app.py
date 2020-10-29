@@ -1,12 +1,14 @@
-import os
-from flask import Flask, render_template
+import dash
+import dash_table
+from data.mock_data import issues
 
-app = Flask("name-gathering")
+app = dash.Dash(__name__)
 
-
-@app.route("/")
-def root():
-    return render_template("index.html")
+app.layout = dash_table.DataTable(
+    id="table",
+    columns=[{"name": key, "id": key} for key in issues[0].keys()],
+    data=issues,
+)
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=8000)
+    app.run_server(debug=True)

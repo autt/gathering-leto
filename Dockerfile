@@ -16,6 +16,10 @@ RUN pip install -r requirements.txt
 # Then copy the app code and build it
 COPY . .
 
+COPY /src/data /src/data
+RUN pip install /src/data
+
+ENTRYPOINT ["python"]
 
 
 ################################################
